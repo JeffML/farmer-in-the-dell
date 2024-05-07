@@ -3,38 +3,38 @@ import p5 from "p5";
 import { characters } from "./characters";
 
 const doRelations = () => {
-    for (let c in characters) c.relations = []
+    for (let c in characters) characters[c].relations = [];
 
-    const {farmer, wife, child, nurse, cow, dog, cat, mouse, cheese} = characters;
+    const { farmer, wife, child, nurse, cow, dog, cat, mouse, cheese } =
+        characters;
 
-    let r = farmer.relations
+    let r = farmer.relations;
+    r.married = wife;
+    r.owns = cow;
+    r.owns = dog;
 
-    r.push({"married": wife})
-    r.push({"owns": cow})
-    r.push({"owns": dog})
+    r = wife.relations;
+    r.married = farmer;
+    r.adopts = child;
+    r.employs = nurse;
 
-    r = wife.relations
-    r.push({"married": farmer})
-    r.push({"adopts": child})
-    r.push({"employs": nurse})
+    r = child.relations;
+    r.needs = nurse;
 
-    r = child.relations
-    r.push({"needs": nurse})
+    r = nurse.relations;
+    r["cares for"] = child;
+    r.milks = cow;
 
-    r = nurse.relations
-    r.push({"cares for": child})
-    r.push({"milks": cow})
+    r = dog.relations;
+    r.guards = cow;
+    r.befriends = cat;
 
-    r = dog.relations
-    r.push({"guards": cow})
-    r.push({"befriends": cat})
+    r = cat.relations;
+    r.befriends = dog;
+    r.adopts = farmer;
+    r.hunds = mouse;
 
-    r = cat.relations
-    r.push({"befriends": dog})
-    r.push({"adopts":farmer})
-    r.push({"hunds": mouse})
-
-    mouse.relations.push({"eats": cheese})
+    mouse.relations.eats = cheese;
 };
 
 export const Version3 = () => {
@@ -72,11 +72,16 @@ export const Version3 = () => {
                     const character = characters[c];
                     const [x, y] = character.location;
 
-                    if (character.takes) {
-                        const taken = characters[character.takes];
-                        const [x2, y2] = taken.location;
+                    for (const rel in character.relations) {
+                        const relation = character.relations[rel]
+                        const [x2, y2] = relation.location;
                         p.line(x, y, x2, y2);
                     }
+                }
+
+                for (const c in characters) {
+                    const character = characters[c];
+                    const [x, y] = character.location;
 
                     p.ellipse(x, y, dia);
                     p.text(c, x, y);
