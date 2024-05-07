@@ -3,16 +3,41 @@ import p5 from "p5";
 import { characters } from "./characters";
 
 const doRelations = () => {
-    // for this version, all relations are the same.
-    const keys = Object.keys(characters);
-    keys.forEach((key, i) => {
-        if (i + 1 < keys.length) {
-            characters[key].takes = keys[i + 1];
-        }
-    });
+    for (let c in characters) c.relations = []
+
+    const {farmer, wife, child, nurse, cow, dog, cat, mouse, cheese} = characters;
+
+    let r = farmer.relations
+
+    r.push({"married": wife})
+    r.push({"owns": cow})
+    r.push({"owns": dog})
+
+    r = wife.relations
+    r.push({"married": farmer})
+    r.push({"adopts": child})
+    r.push({"employs": nurse})
+
+    r = child.relations
+    r.push({"needs": nurse})
+
+    r = nurse.relations
+    r.push({"cares for": child})
+    r.push({"milks": cow})
+
+    r = dog.relations
+    r.push({"guards": cow})
+    r.push({"befriends": cat})
+
+    r = cat.relations
+    r.push({"befriends": dog})
+    r.push({"adopts":farmer})
+    r.push({"hunds": mouse})
+
+    mouse.relations.push({"eats": cheese})
 };
 
-export const Version2 = () => {
+export const Version3 = () => {
     const renderRef = useRef();
     doRelations();
 
@@ -62,5 +87,5 @@ export const Version2 = () => {
         return remove;
     });
 
-    return <div id="Version2" ref={renderRef}></div>;
+    return <div id="Version3" ref={renderRef}></div>;
 };
