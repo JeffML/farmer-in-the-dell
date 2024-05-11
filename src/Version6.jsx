@@ -37,7 +37,7 @@ const doRelations = () => {
     mouse.relations.eats = cheese;
 };
 
-export const Version5 = () => {
+export const Version6 = () => {
     const renderRef = useRef();
     doRelations();
 
@@ -67,7 +67,7 @@ export const Version5 = () => {
                 p.ellipseMode(p.CENTER);
                 p.textAlign(p.CENTER, p.CENTER);
                 p.textFont("Georgia");
-
+                let i = 0;
                 for (const c in characters) {
                     const character = characters[c];
                     const [x, y] = character.location;
@@ -77,9 +77,16 @@ export const Version5 = () => {
                         const [x2, y2] = relation.location;
                         p.push();
                         p.stroke(relationships[rel]);
-                        // p.line(x, y, x2, y2);
-                        const cp1 = [x / 2, y / 2];
-                        const cp2 = [x2 / 2, y2 / 2];
+
+                        const nx = x + (x * i) / 10;
+                        const ny = y + (y * i) / 10;
+                        const nx2 = x2 + (x2 * i) / 10;
+                        const ny2 = y2 + (y2 * i) / 10;
+
+                        i++;
+
+                        const cp1 = [nx / 2, ny / 2];
+                        const cp2 = [nx2 / 2, ny2 / 2];
 
                         p.noFill();
                         p.bezier(x, y, cp1[0], cp1[1], cp2[0], cp2[1], x2, y2);
@@ -100,5 +107,5 @@ export const Version5 = () => {
         return remove;
     });
 
-    return <div id="Version5" ref={renderRef}></div>;
+    return <div id="Version4" ref={renderRef}></div>;
 };

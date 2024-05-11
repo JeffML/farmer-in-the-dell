@@ -22,10 +22,6 @@ export const Version1 = () => {
                         r * p.sin(character.angle),
                         r * p.cos(character.angle),
                     ];
-                    character.textLocation = [
-                        (r - 10) * location[0],
-                        (r - 10) * location[1],
-                    ];
                 }
 
                 p.createCanvas(600, 600).parent(renderRef.current);
