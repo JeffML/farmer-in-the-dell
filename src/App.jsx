@@ -13,7 +13,7 @@ function App() {
     const body = (
         <>
             <div className="parent">
-                <h2 className="div1">The farmer in the dell</h2>
+                <h2 className="div1">The Farmer in the Dell</h2>
                 <div className="div2">
                     {Object.keys(versions).map((k, i) => (
                         <div key={k}>

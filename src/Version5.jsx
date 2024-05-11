@@ -1,41 +1,6 @@
 import { useRef, useEffect } from "react";
 import p5 from "p5";
-import { characters, relationships } from "./characters";
-
-const doRelations = () => {
-    for (let c in characters) characters[c].relations = [];
-
-    const { farmer, wife, child, nurse, cow, dog, cat, mouse, cheese } =
-        characters;
-
-    let r = farmer.relations;
-    r.married = wife;
-    r.owns = cow;
-    r.owns = dog;
-
-    r = wife.relations;
-    r.married = farmer;
-    r.adopts = child;
-    r.employs = nurse;
-
-    r = child.relations;
-    r.needs = nurse;
-
-    r = nurse.relations;
-    r["cares for"] = child;
-    r.milks = cow;
-
-    r = dog.relations;
-    r.guards = cow;
-    r.befriends = cat;
-
-    r = cat.relations;
-    r.befriends = dog;
-    r.adopts = farmer;
-    r.hunts = mouse;
-
-    mouse.relations.eats = cheese;
-};
+import { characters, relationshipColors, doRelations } from "./characters";
 
 export const Version5 = () => {
     const renderRef = useRef();
@@ -76,7 +41,7 @@ export const Version5 = () => {
                         const relation = character.relations[rel];
                         const [x2, y2] = relation.location;
                         p.push();
-                        p.stroke(relationships[rel]);
+                        p.stroke(relationshipColors[rel]);
                         // p.line(x, y, x2, y2);
                         const cp1 = [x / 2, y / 2];
                         const cp2 = [x2 / 2, y2 / 2];

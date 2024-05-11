@@ -1,41 +1,7 @@
 import { useRef, useEffect } from "react";
 import p5 from "p5";
 import { characters } from "./characters";
-
-const doRelations = () => {
-    for (let c in characters) characters[c].relations = [];
-
-    const { farmer, wife, child, nurse, cow, dog, cat, mouse, cheese } =
-        characters;
-
-    let r = farmer.relations;
-    r.married = wife;
-    r.owns = cow;
-    r.owns = dog;
-
-    r = wife.relations;
-    r.married = farmer;
-    r.adopts = child;
-    r.employs = nurse;
-
-    r = child.relations;
-    r.needs = nurse;
-
-    r = nurse.relations;
-    r["cares for"] = child;
-    r.milks = cow;
-
-    r = dog.relations;
-    r.guards = cow;
-    r.befriends = cat;
-
-    r = cat.relations;
-    r.befriends = dog;
-    r.adopts = farmer;
-    r.hunds = mouse;
-
-    mouse.relations.eats = cheese;
-};
+import { doRelations } from "./characters";
 
 export const Version3 = () => {
     const renderRef = useRef();

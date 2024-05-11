@@ -1,41 +1,6 @@
 import { useRef, useEffect } from "react";
 import p5 from "p5";
-import { characters, relationships } from "./characters";
-
-const doRelations = () => {
-    for (let c in characters) characters[c].relations = [];
-
-    const { farmer, wife, child, nurse, cow, dog, cat, mouse, cheese } =
-        characters;
-
-    let r = farmer.relations;
-    r.married = wife;
-    r.owns = cow;
-    r.owns = dog;
-
-    r = wife.relations;
-    r.married = farmer;
-    r.adopts = child;
-    r.employs = nurse;
-
-    r = child.relations;
-    r.needs = nurse;
-
-    r = nurse.relations;
-    r["cares for"] = child;
-    r.milks = cow;
-
-    r = dog.relations;
-    r.guards = cow;
-    r.befriends = cat;
-
-    r = cat.relations;
-    r.befriends = dog;
-    r.adopts = farmer;
-    r.hunts = mouse;
-
-    mouse.relations.eats = cheese;
-};
+import { characters, relationshipColors, doRelations } from "./characters";
 
 export const Version6 = () => {
     const renderRef = useRef();
@@ -76,12 +41,14 @@ export const Version6 = () => {
                         const relation = character.relations[rel];
                         const [x2, y2] = relation.location;
                         p.push();
-                        p.stroke(relationships[rel]);
+                        p.stroke(relationshipColors[rel]);
 
-                        const nx = x + (x * i) / 10;
-                        const ny = y + (y * i) / 10;
-                        const nx2 = x2 + (x2 * i) / 10;
-                        const ny2 = y2 + (y2 * i) / 10;
+                        const fudge = (v) => ((v*i*3)/40)
+
+                        const nx = x + fudge(x)
+                        const ny = y + fudge(y)
+                        const nx2 = x2 + fudge(x2)
+                        const ny2 = y2 + fudge(y2)
 
                         i++;
 
