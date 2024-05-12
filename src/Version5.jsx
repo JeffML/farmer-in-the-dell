@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import p5 from "p5";
 import { characters, relationshipColors, doRelations } from "./characters";
+import Leg
 
 export const Version5 = () => {
     const renderRef = useRef();
@@ -65,5 +66,8 @@ export const Version5 = () => {
         return remove;
     });
 
-    return <div id="Version5" ref={renderRef}></div>;
+    return <div>
+        <div id="Version5" ref={renderRef}></div>
+        <Legend></Legend>
+    </div>;
 };

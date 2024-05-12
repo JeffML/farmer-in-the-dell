@@ -1,6 +1,8 @@
 import { useRef, useEffect } from "react";
 import p5 from "p5";
 import { characters, relationshipColors, doRelations } from "./characters";
+import { Legend } from "./Legend";
+
 
 export const Version4 = () => {
     const renderRef = useRef();
@@ -38,13 +40,12 @@ export const Version4 = () => {
                     const [x, y] = character.location;
 
                     for (const rel in character.relations) {
-                        const relation = character.relations[rel]
+                        const relation = character.relations[rel];
                         const [x2, y2] = relation.location;
-                        p.push()
-                        console.log(rel, relationshipColors[rel])
-                        p.stroke(relationshipColors[rel])
+                        p.push();
+                        p.stroke(relationshipColors[rel]);
                         p.line(x, y, x2, y2);
-                        p.pop()
+                        p.pop();
                     }
                 }
 
@@ -61,5 +62,10 @@ export const Version4 = () => {
         return remove;
     });
 
-    return <div id="Version4" ref={renderRef}></div>;
+    return (
+        <div>
+            <div id="Version4" ref={renderRef}></div>
+            <Legend></Legend>
+        </div>
+    );
 };

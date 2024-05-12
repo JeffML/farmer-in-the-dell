@@ -1,6 +1,7 @@
 import { useRef, useEffect } from "react";
 import p5 from "p5";
 import { characters, relationshipColors, doRelations } from "./characters";
+import { Legend } from "./Legend";
 
 export const Version6 = () => {
     const renderRef = useRef();
@@ -43,12 +44,12 @@ export const Version6 = () => {
                         p.push();
                         p.stroke(relationshipColors[rel]);
 
-                        const fudge = (v) => ((v*i*3)/40)
+                        const fudge = (v) => (v * i * 3) / 40;
 
-                        const nx = x + fudge(x)
-                        const ny = y + fudge(y)
-                        const nx2 = x2 + fudge(x2)
-                        const ny2 = y2 + fudge(y2)
+                        const nx = x + fudge(x);
+                        const ny = y + fudge(y);
+                        const nx2 = x2 + fudge(x2);
+                        const ny2 = y2 + fudge(y2);
 
                         i++;
 
@@ -56,7 +57,8 @@ export const Version6 = () => {
                         const cp2 = [nx2 / 2, ny2 / 2];
 
                         p.noFill();
-                        p.bezier(x, y, cp1[0], cp1[1], cp2[0], cp2[1], x2, y2);
+                        // p.bezier(x, y, cp1[0], cp1[1], cp2[0], cp2[1], x2, y2);
+                        p.bezier(x, y, ...cp1, ...cp2, x2, y2);
                         p.pop();
                     }
                 }
@@ -74,5 +76,10 @@ export const Version6 = () => {
         return remove;
     });
 
-    return <div id="Version4" ref={renderRef}></div>;
+    return (
+        <div>
+            <div id="Version6" ref={renderRef}></div>
+            <Legend></Legend>
+        </div>
+    );
 };
