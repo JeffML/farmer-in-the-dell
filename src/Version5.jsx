@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import p5 from "p5";
 import { characters, relationshipColors, doRelations } from "./characters";
-import Leg
+import {Legend} from "./Legend"
 
 export const Version5 = () => {
     const renderRef = useRef();
@@ -48,7 +48,7 @@ export const Version5 = () => {
                         const cp2 = [x2 / 2, y2 / 2];
 
                         p.noFill();
-                        p.bezier(x, y, cp1[0], cp1[1], cp2[0], cp2[1], x2, y2);
+                        p.bezier(x, y, ...cp1, ...cp2, x2, y2);
                         p.pop();
                     }
                 }
